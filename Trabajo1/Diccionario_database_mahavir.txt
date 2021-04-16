@@ -1,17 +1,18 @@
 
 
-Bases de datos Mahavir Kmina 
+Diccionario: Base de datos Mahavir Kmina 
 
+ENTIDADES:
 1. Paciente: Es el usuario que accede a los servicios de la corporación Mahavir kmina.
 	- Nombre: Nombre de la persona. Tipo: VARCHAR(255)
-	- ID: Es el número de identificación único. Tipo: INT
+	- ID: Es el número de identificación único. Tipo: INT. *CAMPO CLAVE
 	- Sexo: Dos caracteres (F y M). Tipo: VARCHAR(2)
 	- Edad: Tipo INT
 	- Telefono: Necesario para seguimiento. Tipo: INT
 	- EPS: Determina si tiene convenio. Tipo: VARCHAR(255)
 
 2. Prótesis: Dispositivo biomédico otorgado por la organización a cada paciente. 
-	- Serial: Cosecutivo de la prótesis entregada. Tipo: INT, Autoincrementable.
+	- Serial: Cosecutivo de la prótesis entregada. Tipo: INT, Autoincrementable. *CAMPO CLAVE
 	- Amputación: Describe tipo de amputación (Transtibial o Transfemoral). Tipo: VARCHAR(255)
 	- Medidas: Diferentes valores tomados a la persona por el profesional para desarrollar la prótesis. Tipo: LONGTEXT
 
@@ -19,11 +20,11 @@ Bases de datos Mahavir Kmina
 	- Nombre: Tipo VARCHAR(255)
 	- Usuario: Define usuario carácterístico para acceso a los datos. Tipo: VARCHAR(255)
 	- Contraseña: Conjunto de caracteres específico para acceso a los datos. Tipo: VARCHAR(255)
-	- ID: Es el número de identificación único. Tipo: INT
+	- ID: Es el número de identificación único. Tipo: INT. *CAMPO CLAVE
 	- Cargo: Define el trabajo que desempeña dicho profesional. Tipo: VARCHAR(255)
 
 4. Proceso: Define la etapa en la cuál se encuentra el seguimiento al paciente, hace referencia al proceso de protetización. 
-	- ID: Tipo INT
+	- ID: Tipo INT. *CAMPO CLAVE
 	- Etapa: Menciona la etapa en la que se encuentra el paciente, son 9. Tipo: INT
 		>>> Ingreso al programa    --> 1
 		>>> Tiempo de espera       --> 2
@@ -36,3 +37,22 @@ Bases de datos Mahavir Kmina
 		>>> Adaptación             --> 9
 	- Descripción: Espacio para realizar una observación del estado del paciente o la prótesis. Tipo: LONGTEXT
 
+RELACIONES:
+
+1. Paciente_protesis: Descripbe la acción que ejerce un paciente sobre una prótesis, cada paciente usa una o varias prótesis. 
+	- ID: Tipo INT
+	- ID Paciente: Identificación del paciente. Tipo
+	- ID Prótesis: Serial de la prótesis que corresponde.Tipo INT
+	
+2. Paciente_profesional: Cada pacientes es atendido por un profesional. Tipo INT
+	- ID: Tipo INT
+	- ID Paciente: Identificación del paciente. Tipo INT
+	- ID Profesional: Identificación del profesional que hace el seguimiento al paciente. Tipo INT
+	
+3. Paciente_protesis_profesional: Describe la interacción entre las tres entidades, pero además está relacionada con la entidad Etapa, pues describe el punto en el que se encuentra el proceso del paciente. 
+	- ID: Tipo INT
+	- ID Paciente
+	- ID Prótesis
+	- ID Profesional
+	
+	
